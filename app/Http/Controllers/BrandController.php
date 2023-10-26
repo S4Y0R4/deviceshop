@@ -25,7 +25,7 @@ class BrandController extends Controller
         $data = request()->validate([
             'brandName' => 'required|string|max:255',
         ]);
-        Brand::create($data);
+        Brand::firstOrCreate($data);
         return redirect()->route('brand.index');
     }
     public function show(Brand $brand)
@@ -33,5 +33,24 @@ class BrandController extends Controller
         $products = Product::where('brand_id', $brand->id)->get();
         return view('brand.show-details', compact('brand','products'));
     } 
-           
+    
+    public function edit(Brand $brand)
+    {
+        return view('brand.edit', compact('brand'));
+    }
+
+    public function update(Brand $brand)
+    {
+        $data = request()->validate([
+            'brandName' => 'required|string|max:255',
+        ]);
+        $brand -> update($data);
+        return redirect()->route('brand.show', compact('brand'));
+    }
+         
+    public function destroy(Brand $brand)
+    {
+        $brand->delete();
+        return redirect()->route('brand.index');
+    }
 }

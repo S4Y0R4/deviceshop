@@ -32,10 +32,12 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'image' => 'nullable|string',
         ]);
-        $brand = Brand::firstOrCreate(['brandName' => $data['brandName']]);
+
+        // Создаем или находим бренд по имени
+        $brand = Brand::where(['brandName' => $data['brandName']])->first();
         $brandId = $brand->id;
         // Создаем или находим категорию по имени
-        $category = Category::firstOrCreate(['categoryName' => $data['categoryName']]);
+        $category = Category::where(['categoryName' => $data['categoryName']])->first();
         $categoryId = $category->id;
 
         $productData = [
@@ -58,17 +60,45 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('product.edit', compact('product'));
+        $categories = Category::all();
+        $brands = Brand::all();
+        $currentCategoryName = Category::where('id', $product->category_id)->first()->categoryName;
+        $currentBrandName = Brand::where('id', $product->brand_id)->first()->brandName;
+        return view('product.edit', compact('product', 'categories','brands', 'currentCategoryName', 'currentBrandName'));
     }
 
-    public function update()
+    public function update(Product $product)
     {
-        dd('product update');
+        $data = request()->validate([
+            'productName' => 'required|string|max:255',
+            'categoryName' => 'required|string|max:255',
+            'brandName' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'image' => 'nullable|string',
+        ]);
+        // Создаем или находим бренд по имени
+        $brand = Brand::where(['brandName' => $data['brandName']])->first();
+        $brandId = $brand->id;
+        // Создаем или находим категорию по имени
+        $category = Category::where(['categoryName' => $data['categoryName']])->first();
+        $categoryId = $category->id;
+        $productData = [
+            'productName' => $data['productName'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'image' => $data['image'],
+            'brand_id' => $brandId,
+            'category_id' => $categoryId,
+        ];
+        $product -> update($productData);
+        return redirect()->route('product.show', compact('product'));
     }
 
-    public function destroy()
+    public function destroy(Product $product)
     {
-        dd('product destroy');
+        $product -> delete();
+        return redirect()->route('product.index');
     }
     
 

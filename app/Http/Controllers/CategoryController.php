@@ -23,12 +23,31 @@ class CategoryController extends Controller
         $data = request()->validate([
             'categoryName' => 'required|string|max:255',
         ]);
-        Category::create($data);
+        Category::firstOrCreate($data);
         return redirect()->route('category.index');
     }
 
     public function show(Category $category)
     {   
-            return view('category.show-details', compact('category'));
+        return view('category.show-details', compact('category'));
+    }
+
+    public function edit(Category $category)
+    {
+        return view('category.edit', compact('category'));
+    }
+
+    public function update(Category $category)
+    {  
+        $data = request()->validate([
+            'categoryName' => 'required|string|max:255',
+        ]);
+        $category -> update($data);
+        return redirect()->view('category.show', compact('category')); 
+    }
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('category.index');
     }
 }
