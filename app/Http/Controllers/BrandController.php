@@ -25,7 +25,8 @@ class BrandController extends Controller
             $data = request()->validate([
                 'brandName' => 'required|string|max:255',
             ]);
-            $data['brandName'] = mb_convert_case($data['brandName'], MB_CASE_TITLE, "UTF-8");
+            //Приводим brandName к верхнему регистру
+            $data['brandName'] = mb_strtoupper($data['brandName'], 'UTF-8');            
             Brand::firstOrCreate($data);
             session()->flash('success', 'Бренд успешно создан.');
         } catch (\Exception $e) {
@@ -52,6 +53,8 @@ class BrandController extends Controller
             $data = request()->validate([
                 'brandName' => 'required|string|max:255',
             ]);
+            //Приводим brandName к верхнему регистру
+            $data['brandName'] = mb_strtoupper($data['brandName'], 'UTF-8');      
             $brand -> update($data);
             session()->flash('success', 'Бренд успешно обновлен.');
         } catch (\Exception $e){

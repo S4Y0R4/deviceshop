@@ -13,24 +13,26 @@
     </div>
 
     <div class="form-group">
-        <label for="categoryName">Категория</label>
-        <select name="categoryName" id="categoryName" class="form-control" >
-            <option value="">{{$currentCategoryName}}</option>
+        <label for="category_id">Категория</label>
+        <select name="category_id" id="category_id" class="form-control" >
             @foreach ($categories as $category)
-                <option value="{{ $category->categoryName }}">{{ $category->categoryName }}</option>
+            <option 
+                {{ $category->id === $product->category_id ? ' selected' : '' }}
+                value="{{ $category->id }}">{{ $category->categoryName }}</option>
             @endforeach
         </select>
     </div>
 
     <div class="form-group">
-    <label for="brandName">Бренд</label>
-    <select name="brandName" id="brandName" class="form-control" >
-        <option value="">{{$currentBrandName}}</option>
+    <label for="brand_id">Бренд</label>
+    <select name="brand_id" id="brand_id" class="form-control" >
         @foreach ($brands as $brand)
-            <option value="{{ $brand->brandName }}">{{ $brand->brandName }}</option>
+        <option
+            {{$brand->id === $product->brand_id ? 'selected' :'' }}
+            value="{{ $brand->id }}">{{ $brand->brandName }}</option>
         @endforeach
     </select>
-</div>
+    </div>
     <div class="form-group">
         <label for="price">Цена</label>
         <input type="number" name="price" id="price" class="form-control" step="0.01" min="0" value="{{$product->price}}" required>

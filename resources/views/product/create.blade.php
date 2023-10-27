@@ -12,21 +12,21 @@
     </div>
 
     <div class="form-group">
-        <label for="categoryName">Категория</label>
-        <select name="categoryName" id="categoryName" class="form-control" required>
+        <label for="category_id">Категория</label>
+        <select name="category_id" id="category_id" class="form-control" required>
             <option value="">Выберите существующую категорию</option>
             @foreach ($categories as $category)
-                <option value="{{ $category->categoryName }}">{{ $category->categoryName }}</option>
+                <option value="{{ $category->id }}">{{ $category->categoryName }}</option>
             @endforeach
         </select>
     </div>
 
     <div class="form-group">
-    <label for="brandName">Бренд</label>
-    <select name="brandName" id="brandName" class="form-control" required>
+    <label for="brand_id">Бренд</label>
+    <select name="brand_id" id="brand_id" class="form-control" required>
         <option value="">Выберите существующующий бренд</option>
         @foreach ($brands as $brand)
-            <option value="{{ $brand->brandName }}">{{ $brand->brandName }}</option>
+            <option value="{{ $brand->id }}">{{ $brand->brandName }}</option>
         @endforeach
     </select>
 </div>
