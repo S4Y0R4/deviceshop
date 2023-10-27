@@ -1,4 +1,4 @@
-<h1>Создание бренда</h1>
+<h1>Добавление бренда</h1>
 <form method="POST" action="{{ route('brand.store') }}">
     @csrf
     <div class="form-group">

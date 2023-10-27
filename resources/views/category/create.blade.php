@@ -1,4 +1,4 @@
-<h1>Создание категории</h1>
+<h1>Добавление категории</h1>
 <form method="POST" action="{{ route('category.store') }}">
     @csrf
     <div class="form-group">
@@ -6,5 +6,5 @@
         <input type="text" name="categoryName" id="categoryName" class="form-control" required>
     </div>
 
-    <button type="submit">Добавить продукт</button>
+    <button type="submit">Добавить категорию</button>
 </form>

@@ -12,7 +12,7 @@ Route::get('/brands/create', [BrandController::class,'create'])->name('brand.cre
 Route::post('/brands', [BrandController::class,'store'])->name('brand.store'); //Сохранить созданный брендов
 Route::get('/brands/{brand}', [BrandController::class,'show'])->name('brand.show'); //Подробнее о бренде
 Route::get('/brands/{brand}/edit', [BrandController::class,'edit'])->name('brand.edit'); //Редактировать бренд
-Route::patch('/brands/{brand}', [BrandController::class,'update'])->name('brand.update'); //Обновить бренд
+Route::patch('/brands/{brand}', [BrandController::class, 'update'])->name('brand.update'); //Обновить бренд
 Route::delete('/brands/{brand}', [BrandController::class,'destroy'])->name('brand.destroy'); //Удалить бренд
 
 // Category routes 

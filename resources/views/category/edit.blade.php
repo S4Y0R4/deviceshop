@@ -7,12 +7,11 @@
         <input type="text" name="categoryName" id="categoryName" value="{{$category->categoryName}}" class="form-control" required>
     </div>
 
-    <form action="{{ route('category.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить эту категорию?');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Удалить категорию</button>
-    </form>
+    <button type="submit">Обновить категорию</button>
+</form>
 
-
-    <button type="submit">Обновить категорию/button>
+<form action="{{ route('category.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить эту категорию?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger">Удалить категорию</button>
 </form>

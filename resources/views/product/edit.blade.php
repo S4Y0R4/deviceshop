@@ -41,11 +41,10 @@
         <input type="file" name="image" id="image" class="form-control" value= "{{$product->image}}" accept="image/*">
     </div>
 
-    <form action="{{ route('product.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить этот продукт?');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Удалить продукт</button>
-    </form>
-
     <button type="submit">Обновить продукт</button>
+</form>
+<form action="{{ route('product.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить этот продукт?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger">Удалить продукт</button>
 </form>
