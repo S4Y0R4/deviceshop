@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
-    
+
     public function index()
     {
         $categories = Category::all();
-        return view('category.index', compact('categories'));    
+        return view('category.index', compact('categories'));
     }
-    
+
     public function create()
     {
-        return view('category.create');   
+        return view('category.create');
     }
     public function store()
     {
@@ -29,14 +30,14 @@ class CategoryController extends Controller
             Category::firstOrCreate($data);
             session()->flash('success', 'Категория успешно создана.');
         } catch (\Exception $e) {
-            Category::rollback();
+            Log::error('Ошибка при создании категории' . $e->getMessage(), ['data' => $data]);
             session()->flash('error', 'Произошла ошибка при создании категории.');
         }
         return redirect()->route('category.index');
     }
 
     public function show(Category $category)
-    {   
+    {
         return view('category.show-details', compact('category'));
     }
 
@@ -46,30 +47,28 @@ class CategoryController extends Controller
     }
 
     public function update(Category $category)
-    {  
-        try
-        {
-        $data = request()->validate([
-            'categoryName' => 'required|string|max:255',
-        ]);
-        $data['categoryName'] = mb_convert_case($data['categoryName'], MB_CASE_TITLE, "UTF-8");
-        $category -> update($data);
-        session()->flash('success', 'Продукт успешно обновлен.');
+    {
+        try {
+            $data = request()->validate([
+                'categoryName' => 'required|string|max:255',
+            ]);
+            $data['categoryName'] = mb_convert_case($data['categoryName'], MB_CASE_TITLE, "UTF-8");
+            $category->update($data);
+            session()->flash('success', 'Продукт успешно обновлен.');
         } catch (\Exception $e) {
-            Category::rollback();
+            Log::error('Ошибка при обновлении категории' . $e->getMessage(), ['data' => $data]);
             session()->flash('error', 'Произошла ошибка при обновлении категори.');
         }
-        return redirect()->route('category.show', compact('category')); 
+        return redirect()->route('category.show', compact('category'));
     }
     public function destroy(Category $category)
     {
-        try{
+        try {
             $category->delete();
             session()->flash('success', 'Категория успешна удалена.');
-
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
+            Log::error('Ошибка при удалении категории' . $e->getMessage());
             session()->flash('error', 'Произошла ошибка при удалении категории.');
-
         }
         return redirect()->route('category.index');
     }

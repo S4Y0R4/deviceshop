@@ -6,11 +6,12 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
     public function index()
-    {   
+    {
         $products = Product::all();
         return view('product.index', compact('products'));
     }
@@ -19,29 +20,29 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('product.create', compact('categories', 'brands'));    
+        return view('product.create', compact('categories', 'brands'));
     }
 
     public function store()
     {
-        try{
+        try {
             $data = request()->validate([
                 'productName' => 'required|string|max:255',
-                'category_id' => 'required|string|max:255',
-                'brand_id' => 'required|string|max:255',
+                'category_id' => 'required|numeric|max:255',
+                'brand_id' => 'required|numeric|max:255',
                 'description' => 'required|string',
                 'price' => 'required|numeric|min:0',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]); 
-            //dd($data);
+            ]);
             Product::create($data);
             session()->flash('success', 'Продукт успешно создан.');
         } catch (\Exception $e) {
+            Log::error('Ошибка при создании продукта' . $e->getMessage(), ['data' => $data]);
             session()->flash('error', 'Произошла ошибка при создании продукта.');
         }
         return redirect()->route('product.index');
     }
-    
+
     public function show(Product $product)
     {
         return view('product.show-details', compact('product'));
@@ -52,24 +53,24 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('product.edit', compact('product', 'categories','brands'));
+        return view('product.edit', compact('product', 'categories', 'brands'));
     }
 
     public function update(Product $product)
     {
-        try{
+        try {
             $data = request()->validate([
                 'productName' => 'required|string|max:255',
-                'category_id' => 'required|string|max:255',
-                'brand_id' => 'required|string|max:255',
+                'category_id' => 'required|numeric|max:255',
+                'brand_id' => 'required|numeric|max:255',
                 'description' => 'required|string',
                 'price' => 'required|numeric|min:0',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);  
-            dd($data);
-            $product -> update($data);
+            ]);
+            $product->update($data);
             session()->flash('success', 'Продукт успешно обновлен.');
         } catch (\Exception $e) {
+            Log::error('Ошибка при обновлении продукта' . $e->getMessage(), ['data' => $data]);
             session()->flash('error', 'Произошла ошибка при обновлении продукта.');
         }
         return redirect()->route('product.show', compact('product'));
@@ -77,14 +78,13 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        try{
-            $product -> delete();
+        try {
+            $product->delete();
             session()->flash('success', 'Продукт успешно удален.');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
+            Log::error('Ошибка при удалении продукта' . $e->getMessage());
             session()->flash('error', 'Произошла ошибка при удалении продукта.');
         }
         return redirect()->route('product.index');
     }
-    
-
-}   
+}
