@@ -11,9 +11,9 @@
 @endif
 
 <div class="product-details">
-    <h1>{{ $product->productName }}</h1>
-    <p>{{ $product->description }}</p>
-    <p>Цена: {{ $product->price }}</p>
+    <h1>{{ $product->product_name }}</h1>
+    <p>{{ $product->product_description }}</p>
+    <p>Цена: {{ $price }}</p>
 
     <div>
         <a href="{{route('product.edit', $product->id)}}">Обновить/удалить продукт</a>

@@ -23,15 +23,15 @@ class BrandController extends Controller
     {
         try {
             $data = request()->validate([
-                'brandName' => 'required|string|max:255',
+                'brand_name' => 'required|string|max:255',
             ]);
-            //Приводим brandName к верхнему регистру
-            $data['brandName'] = mb_strtoupper($data['brandName'], 'UTF-8');
+            //Приводим brand_name к верхнему регистру
+            $data['brand_name'] = mb_strtoupper($data['brand_name'], 'UTF-8');
             Brand::firstOrCreate($data);
-            session()->flash('success', 'Бренд успешно создан.');
+            session()->flash('success', 'The brand has been successfully created.');
         } catch (\Exception $e) {
-            Log::error('Ошибка при создании бренда' . $e->getMessage(), ['data' => $data]);
-            session()->flash('error', 'Произошла ошибка при создании бренда');
+            Log::error('ERROR when creating a brand' . $e->getMessage(), ['data' => $data]);
+            session()->flash('error', 'An error occurred while creating the brand');
         }
         return redirect()->route('brand.index');
     }
@@ -50,15 +50,15 @@ class BrandController extends Controller
     {
         try {
             $data = request()->validate([
-                'brandName' => 'required|string|max:255',
+                'brand_name' => 'required|string|max:255',
             ]);
-            //Приводим brandName к верхнему регистру
-            $data['brandName'] = mb_strtoupper($data['brandName'], 'UTF-8');
+            //Приводим brand_name к верхнему регистру
+            $data['brand_name'] = mb_strtoupper($data['brand_name'], 'UTF-8');
             $brand->update($data);
-            session()->flash('success', 'Бренд успешно обновлен.');
+            session()->flash('success', 'The brand has been successfully updated.');
         } catch (\Exception $e) {
-            Log::error('Ошибка при обновлении бренда' . $e->getMessage(), ['data' => $data]);
-            session()->flash('error', 'Произошла ошибка при обновлении бренда.');
+            Log::error('An error occurred while updating the brand.' . $e->getMessage(), ['data' => $data]);
+            session()->flash('error', 'An error occurred while updating the brand.');
         }
         return redirect()->route('brand.show', compact('brand'));
     }
@@ -67,10 +67,10 @@ class BrandController extends Controller
     {
         try {
             $brand->delete();
-            session()->flash('success', 'Бренд успешно удален.');
+            session()->flash('success', 'The brand has been successfully removed.');
         } catch (\Exception $e) {
-            Log::error('Ошибка при удалении бренда' . $e->getMessage());
-            session()->flash('error', 'Произошла ошибка при удалении бренда.');
+            Log::error('An error occurred while deleting a brand.' . $e->getMessage());
+            session()->flash('error', 'An error occurred while deleting a brand.');
         }
         return redirect()->route('brand.index');
     }

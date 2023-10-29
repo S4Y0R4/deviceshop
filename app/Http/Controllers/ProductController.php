@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\PriceChange;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Type\Decimal;
 
 class ProductController extends Controller
 {
@@ -27,25 +29,33 @@ class ProductController extends Controller
     {
         try {
             $data = request()->validate([
-                'productName' => 'required|string|max:255',
+                'product_name' => 'required|string|max:255',
                 'category_id' => 'required|numeric|max:255',
                 'brand_id' => 'required|numeric|max:255',
-                'description' => 'required|string',
-                'price' => 'required|numeric|min:0',
+                'product_description' => 'required|string',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            Product::create($data);
-            session()->flash('success', 'Продукт успешно создан.');
+            $product = Product::create($data);
+            $data=request()->validate([
+                'price' => 'required|numeric|min:0'
+            ]);
+            PriceChange::create([
+                'product_id'=>$product->id,
+                'new_price'=>$data['price'],
+                'date_price_change' => now(),
+            ]);
+            session()->flash('success', 'Product added');
         } catch (\Exception $e) {
-            Log::error('Ошибка при создании продукта' . $e->getMessage(), ['data' => $data]);
-            session()->flash('error', 'Произошла ошибка при создании продукта.');
+            Log::error('An error occurred while creating the product.' . $e->getMessage(), ['data' => $data]);
+            session()->flash('error', 'An error occurred while creating the product.');
         }
         return redirect()->route('product.index');
     }
 
     public function show(Product $product)
     {
-        return view('product.show-details', compact('product'));
+        $price = $product->latestPrice();
+        return view('product.show-details', compact('product', 'price'));
     }
 
 
@@ -53,25 +63,36 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('product.edit', compact('product', 'categories', 'brands'));
+        $price = $product->latestPrice();
+        return view('product.edit', compact('product', 'categories', 'brands', 'price'));
     }
 
     public function update(Product $product)
     {
         try {
             $data = request()->validate([
-                'productName' => 'required|string|max:255',
+                'product_name' => 'required|string|max:255',
                 'category_id' => 'required|numeric|max:255',
                 'brand_id' => 'required|numeric|max:255',
-                'description' => 'required|string',
-                'price' => 'required|numeric|min:0',
+                'product_description' => 'required|string',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
             $product->update($data);
-            session()->flash('success', 'Продукт успешно обновлен.');
+            $data = request()->validate([
+                'price' => 'required|numeric|min:0'
+            ]);
+            $price = $product->latestPrice();
+            if(!$price || $price != $data['price']){
+                PriceChange::create([
+                    'product_id'=>$product->id,
+                    'new_price'=>$data['price'],
+                    'date_price_change' => now(),
+                ]);
+            }
+            session()->flash('success', 'The product has been successfully updated.');
         } catch (\Exception $e) {
-            Log::error('Ошибка при обновлении продукта' . $e->getMessage(), ['data' => $data]);
-            session()->flash('error', 'Произошла ошибка при обновлении продукта.');
+            Log::error('An error occurred while updating the product.' . $e->getMessage(), ['data' => $data]);
+            session()->flash('error', 'An error occurred while updating the product.');
         }
         return redirect()->route('product.show', compact('product'));
     }
@@ -80,10 +101,10 @@ class ProductController extends Controller
     {
         try {
             $product->delete();
-            session()->flash('success', 'Продукт успешно удален.');
+            session()->flash('success', 'The product was successfully removed.');
         } catch (\Exception $e) {
-            Log::error('Ошибка при удалении продукта' . $e->getMessage());
-            session()->flash('error', 'Произошла ошибка при удалении продукта.');
+            Log::error('An error occurred while uninstalling the product.' . $e->getMessage());
+            session()->flash('error', 'An error occurred while uninstalling the product.');
         }
         return redirect()->route('product.index');
     }

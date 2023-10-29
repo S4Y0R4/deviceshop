@@ -2,13 +2,13 @@
 <form method="POST" action="{{ route('product.store') }}">
     @csrf
     <div class="form-group">
-        <label for="productName">Название продукта</label>
-        <input type="text" name="productName" id="productName" class="form-control" required>
+        <label for="product_name">Название продукта</label>
+        <input type="text" name="product_name" id="product_name" class="form-control" required>
     </div>
 
     <div class="form-group">
-        <label for="description">Описание продукта</label>
-        <textarea name="description" id="description" class="form-control" rows="6" required></textarea>
+        <label for="product_description">Описание продукта</label>
+        <textarea name="product_description" id="product_description" class="form-control" rows="6" required></textarea>
     </div>
 
     <div class="form-group">
@@ -16,7 +16,7 @@
         <select name="category_id" id="category_id" class="form-control" required>
             <option value="">Выберите существующую категорию</option>
             @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->categoryName }}</option>
+                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
             @endforeach
         </select>
     </div>
@@ -26,7 +26,7 @@
     <select name="brand_id" id="brand_id" class="form-control" required>
         <option value="">Выберите существующующий бренд</option>
         @foreach ($brands as $brand)
-            <option value="{{ $brand->id }}">{{ $brand->brandName }}</option>
+            <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
         @endforeach
     </select>
 </div>

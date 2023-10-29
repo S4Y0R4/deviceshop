@@ -1,5 +1,5 @@
 <div class="category-details">
-    <h1>{{ $category->categoryName }}</h1>
+    <h1>{{ $category->category_name }}</h1>
     <div>
         <a href="{{route('category.edit', $category->id)}}">Обновить/удалить категорию</a>
     </div>

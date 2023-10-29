@@ -3,8 +3,8 @@
     @method('PATCH')
     @csrf
     <div class="form-group">
-        <label for="brandName">Название бренда</label>
-        <input type="text" name="brandName" id="brandName" class="form-control" value="{{$brand->brandName}}" required>
+        <label for="brand_name">Название бренда</label>
+        <input type="text" name="brand_name" id="brand_name" class="form-control" value="{{$brand->brand_name}}" required>
     </div>
 
     <button type="submit">Обновить бренд</button>

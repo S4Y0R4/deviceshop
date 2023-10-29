@@ -1,7 +1,7 @@
 <h1>Список брендов</h1>
 <div>
 @foreach ($brands as $brand)
-    <li><a href="{{route('brand.show', $brand->id)}}">{{$brand->id}}. {{$brand->brandName}}</a></li>
+    <li><a href="{{route('brand.show', $brand->id)}}">{{$brand->id}}. {{$brand->brand_name}}</a></li>
 @endforeach
 </div>
 <div>

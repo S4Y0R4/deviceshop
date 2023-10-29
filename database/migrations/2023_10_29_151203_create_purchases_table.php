@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('brand_category', function (Blueprint $table) {
+        Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table-> unsignedBigInteger('brand_id');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('customer_id');
+            $table->dateTime('purchase_date');
             $table->timestamps();
+
+            // Внешний ключ для customer_id, который ссылается на id в таблице customers
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brand_category');
+        Schema::dropIfExists('purchases');
     }
 };

@@ -3,13 +3,13 @@
     @csrf
     @method('patch')
     <div class="form-group">
-        <label for="productName">Название продукта</label>
-        <input type="text" name="productName" id="productName" class="form-control" value="{{$product->productName}}" required>
+        <label for="product_name">Название продукта</label>
+        <input type="text" name="product_name" id="product_name" class="form-control" value="{{$product->product_name}}" required>
     </div>
 
     <div class="form-group">
-        <label for="description">Описание продукта</label>
-        <textarea name="description" id="description" class="form-control" rows="6" required>{{$product->description}}</textarea>
+        <label for="product_description">Описание продукта</label>
+        <textarea name="product_description" id="product_description" class="form-control" rows="6" required>{{$product->product_description}}</textarea>
     </div>
 
     <div class="form-group">
@@ -18,7 +18,7 @@
             @foreach ($categories as $category)
             <option 
                 {{ $category->id === $product->category_id ? ' selected' : '' }}
-                value="{{ $category->id }}">{{ $category->categoryName }}</option>
+                value="{{ $category->id }}">{{ $category->category_name }}</option>
             @endforeach
         </select>
     </div>
@@ -29,13 +29,13 @@
         @foreach ($brands as $brand)
         <option
             {{$brand->id === $product->brand_id ? 'selected' :'' }}
-            value="{{ $brand->id }}">{{ $brand->brandName }}</option>
+            value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
         @endforeach
     </select>
     </div>
     <div class="form-group">
         <label for="price">Цена</label>
-        <input type="number" name="price" id="price" class="form-control" step="0.01" min="0" value="{{$product->price}}" required>
+        <input type="number" name="price" id="price" class="form-control" step="0.01" min="0" value="{{$price}}" required>
     </div>
 
     <div class="form-group">

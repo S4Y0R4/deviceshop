@@ -11,7 +11,7 @@
 @endif
 
 <div class="brand-details">
-    <h1>{{ $brand->brandName }}</h1>
+    <h1>{{ $brand->brand_name }}</h1>
     <div>
         <a href="{{route('brand.edit', $brand->id)}}">Обновить/удалить бренд</a>
     </div>

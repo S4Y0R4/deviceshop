@@ -13,7 +13,7 @@
 <h1>Список продуктов</h1>
 <div>
 @foreach ($products as $product)
-    <li><a href="{{route('product.show', $product->id)}}">{{$product->id}}. {{ $product->productName }}</a></li>
+    <li><a href="{{route('product.show', $product->id)}}">{{$product->id}}. {{ $product->product_name }}</a></li>
 @endforeach
 </div>
 <div>

@@ -3,8 +3,8 @@
     @csrf
     @method('patch')
     <div class="form-group">
-        <label for="categoryName">Название категории</label>
-        <input type="text" name="categoryName" id="categoryName" value="{{$category->categoryName}}" class="form-control" required>
+        <label for="category_name">Название категории</label>
+        <input type="text" name="category_name" id="category_name" value="{{$category->category_name}}" class="form-control" required>
     </div>
 
     <button type="submit">Обновить категорию</button>

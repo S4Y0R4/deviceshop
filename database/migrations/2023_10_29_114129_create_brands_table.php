@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->unique('categoryName');
+        Schema::create('brands', function (Blueprint $table) {
+            $table->id();
+            $table->string('brand_name', 255)->unique();
+            $table->text('brand_description')->nullable();
+            $table->string('brand_image')->nullable();
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropUnique(['categoryName']);
-        });
+        Schema::dropIfExists('brands');
     }
 };
