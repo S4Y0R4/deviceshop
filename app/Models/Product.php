@@ -31,7 +31,7 @@ class Product extends Model
     }
 
     public function latestPrice(){
-        return $this->priceChanges()->latest('date_price_change')->first()->new_price;
+        return $this->priceChanges()->latest('date_price_change')->first();
     }
 
 }

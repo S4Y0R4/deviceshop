@@ -3,5 +3,5 @@
 @endforeach
 
 @foreach ($products as $product)
-    <div><a href="{{route('product.show', $product->id)}}">{{$product->product_name . ' ' . $product->latestPrice()}}</a></div>
+    <div><a href="{{route('product.show', $product->id)}}">{{$product->product_name . ' ' . $product->latestPrice()->new_price}}</a></div>
 @endforeach

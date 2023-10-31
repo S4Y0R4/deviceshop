@@ -33,7 +33,7 @@ class ProductController extends Controller
                 'category_id' => 'required|numeric|max:255',
                 'brand_id' => 'required|numeric|max:255',
                 'product_description' => 'required|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'nullable|string',
             ]);
             $product = Product::create($data);
             $data=request()->validate([
@@ -54,7 +54,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $price = $product->latestPrice();
+        $price = $product->latestPrice()->new_price;
         return view('product.show-details', compact('product', 'price'));
     }
 
@@ -63,7 +63,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        $price = $product->latestPrice();
+        $price = $product->latestPrice()->new_price;
         return view('product.edit', compact('product', 'categories', 'brands', 'price'));
     }
 
@@ -75,13 +75,13 @@ class ProductController extends Controller
                 'category_id' => 'required|numeric|max:255',
                 'brand_id' => 'required|numeric|max:255',
                 'product_description' => 'required|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'nullable|string',
             ]);
             $product->update($data);
             $data = request()->validate([
                 'price' => 'required|numeric|min:0'
             ]);
-            $price = $product->latestPrice();
+            $price = $product->latestPrice()->new_price;
             if(!$price || $price != $data['price']){
                 PriceChange::create([
                     'product_id'=>$product->id,

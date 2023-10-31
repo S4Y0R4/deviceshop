@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\PriceChange;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -17,12 +20,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all()->each(function ($product) {
-            $product->latest_price = $product->latestPrice() ? $product->latestPrice() : null;
+            $product->price = $product->latestPrice()->new_price;
         });
     
         return ProductResource::collection($products);
     }
-    
 
     /**
      * Store a newly created resource in storage.
@@ -30,9 +32,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        //
+        $product = Product::create($request->except('price'));
+
+        $priceChange = new PriceChange([
+            'product_id'=>$product->id,
+            'new_price'=>$request->price,
+            'date_price_change'=>now(),
+        ]);
+        $product->priceChanges()->save($priceChange);
+        $product->price=$product->latestPrice()->new_price;
+
+        return new ProductResource($product);
     }
 
     /**
@@ -44,7 +56,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $product->latest_price=$product->latestPrice();
+        $product->latest_price=$product->latestPrice()-> new_price;
         return new ProductResource($product);
     }
 
@@ -55,19 +67,28 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(ProductUpdateRequest $request, Product $product)
+    {   
+        if ($request->input('price') != null) {
+            $priceChange = new PriceChange([
+                'new_price' => $request->input('price'),
+                'date_price_change' => now(),
+            ]);
+            $product->priceChanges()->save($priceChange);
+        }
+        $product->update($request->except('price')); 
+        $product->price = $product->latestPrice()->new_price;
+        return new ProductResource($product);
     }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        return Product::destroy($id);
+        $product->delete();
+        return response()->noContent();
     }
 }
