@@ -8,7 +8,6 @@ use App\Models\PriceChange;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Ramsey\Uuid\Type\Decimal;
 
 class ProductController extends Controller
 {

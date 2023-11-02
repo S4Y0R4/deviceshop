@@ -1,0 +1,37 @@
+scalar DateTime
+
+type Query {
+  products: [Product!]! @all(model: "App\\Models\\Product")
+  categories: [Category!]! @all(model: "App\\Models\\Category")
+  brands: [Brand!]! @all(model: "App\\Models\\Brand")
+}
+
+type Product {
+  id: ID!
+  product_name: String!
+  product_description: String
+  brand_id: Int
+  category_id: Int
+  created_at: DateTime
+  latest_price: PriceChange @method(name: "latestPrice")
+}
+
+type Category {
+  id: ID!
+  category_name: String!
+  category_description: String
+  products: [Product!]!
+}
+
+type Brand {
+  id: ID!
+  brand_name: String!
+  brand_description: String
+  products: [Product!]!  
+}
+
+type PriceChange {
+  product_id: Int!
+  new_price: Float!
+  date_price_change: DateTime!
+}

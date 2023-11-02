@@ -19,10 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all()->each(function ($product) {
-            $product->price = $product->latestPrice()->new_price;
-        });
-    
+        $products = Product::all();
         return ProductResource::collection($products);
     }
 
@@ -37,12 +34,11 @@ class ProductController extends Controller
         $product = Product::create($request->except('price'));
 
         $priceChange = new PriceChange([
-            'product_id'=>$product->id,
-            'new_price'=>$request->price,
-            'date_price_change'=>now(),
+            'product_id' => $product->id,
+            'new_price' => $request->price,
+            'date_price_change' => now(),
         ]);
         $product->priceChanges()->save($priceChange);
-        $product->price=$product->latestPrice()->new_price;
 
         return new ProductResource($product);
     }
@@ -56,7 +52,6 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $product->latest_price=$product->latestPrice()-> new_price;
         return new ProductResource($product);
     }
 
@@ -68,7 +63,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(ProductUpdateRequest $request, Product $product)
-    {   
+    {
         if ($request->input('price') != null) {
             $priceChange = new PriceChange([
                 'new_price' => $request->input('price'),
@@ -76,8 +71,7 @@ class ProductController extends Controller
             ]);
             $product->priceChanges()->save($priceChange);
         }
-        $product->update($request->except('price')); 
-        $product->price = $product->latestPrice()->new_price;
+        $product->update($request->except('price'));
         return new ProductResource($product);
     }
     /**

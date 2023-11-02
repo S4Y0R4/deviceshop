@@ -31,7 +31,12 @@ class Product extends Model
     }
 
     public function latestPrice(){
-        return $this->priceChanges()->latest('date_price_change')->first();
+        $priceChange =$this->priceChanges()->latest('date_price_change')->first();
+        // Преобразование строки в DateTime объект, если необходимо
+        if ($priceChange && is_string($priceChange->date_price_change)) {
+            $priceChange->date_price_change = new \DateTime($priceChange->date_price_change);
+        }
+        return $priceChange;
     }
 
 }
