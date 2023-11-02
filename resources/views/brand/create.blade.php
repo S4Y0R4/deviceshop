@@ -8,3 +8,8 @@
 
     <button type="submit">Добавить бренд</button>
 </form>
+
+<form action="{{route('brand.index')}}" method="GET">
+    <button> К списку брендов </button>
+</form>
+    

@@ -42,3 +42,8 @@
 
     <button type="submit">Добавить продукт</button>
 </form>
+
+<form action="{{route('product.index')}}" method="GET">
+    <button> К списку продуктов </button>
+</form>
+    

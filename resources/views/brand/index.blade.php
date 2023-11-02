@@ -6,4 +6,5 @@
 </div>
 <div>
     <a href="{{route('brand.create')}}">Добавить бренд</a>
+    <a href="{{route('main.index')}}">На главную</a>
 </div>

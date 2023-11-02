@@ -8,3 +8,8 @@
 
     <button type="submit">Добавить категорию</button>
 </form>
+
+<form action="{{route('category.index')}}" method="GET">
+    <button> К списку категорий </button>
+</form>
+    

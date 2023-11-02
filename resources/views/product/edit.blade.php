@@ -45,6 +45,11 @@
 
     <button type="submit">Обновить продукт</button>
 </form>
+
+<form action="{{route('product.index')}}" method="GET">
+    <button> К списку продуктов </button>
+</form>
+    
 <form action="{{ route('product.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить этот продукт?');">
     @csrf
     @method('DELETE')
