@@ -25,6 +25,7 @@ class CategoryController extends Controller
         try {
             $data = request()->validate([
                 'category_name' => 'required|string|max:255',
+                'category_description' => 'string',
             ]);
             $first = mb_substr($data['category_name'],0,1, 'UTF-8');//первая буква
             $last = mb_substr( $data['category_name'],1);//все кроме первой буквы
@@ -55,6 +56,7 @@ class CategoryController extends Controller
         try {
             $data = request()->validate([
                 'category_name' => 'required|string|max:255',
+                'category_description' => 'string',
             ]);
             $first = mb_substr($data['category_name'],0,1, 'UTF-8');//первая буква
             $last = mb_substr( $data['category_name'],1);//все кроме первой буквы

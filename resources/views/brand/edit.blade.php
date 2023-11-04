@@ -1,7 +1,7 @@
 <h1>Редактирование бренда</h1>
 <form action="{{ route('brand.update', $brand->id) }}" method="POST">
-    @method('PATCH')
     @csrf
+    @method('patch')
     <div class="form-group">
         <label for="brand_name">Название бренда</label>
         <input type="text" name="brand_name" id="brand_name" class="form-control" value="{{$brand->brand_name}}" required>

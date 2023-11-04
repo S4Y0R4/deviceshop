@@ -1,5 +1,5 @@
 <h1>Редактирование категории</h1>
-<form method="POST" action="{{ route('category.update', $category->id) }}">
+<form action="{{ route('category.update', $category->id) }}" method="POST" >
     @csrf
     @method('patch')
     <div class="form-group">

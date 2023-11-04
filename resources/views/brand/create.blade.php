@@ -5,6 +5,10 @@
         <label for="brand_name">Новое название бренда</label>
         <input type="text" name="brand_name" id="brand_name" class="form-control" required>
     </div>
+    <div class="form-group">
+        <label for="brand_description">Описание бренда</label>
+        <textarea name="brand_description" id="brand_description" class="form-control" rows="6" required></textarea>
+    </div>
 
     <button type="submit">Добавить бренд</button>
 </form>

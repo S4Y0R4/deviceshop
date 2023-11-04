@@ -1,3 +1,4 @@
+<h1>Hello from docker!!!</h1>
 @foreach ($categories as $category)
     <div><a href="{{route('category.show', $category->id)}}">{{$category->category_name}}</a></div>
 @endforeach

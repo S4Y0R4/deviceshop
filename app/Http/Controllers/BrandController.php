@@ -24,6 +24,7 @@ class BrandController extends Controller
         try {
             $data = request()->validate([
                 'brand_name' => 'required|string|max:255',
+                'brand_description' => 'string',
             ]);
             //Приводим brand_name к верхнему регистру
             $data['brand_name'] = mb_strtoupper($data['brand_name'], 'UTF-8');
@@ -51,6 +52,7 @@ class BrandController extends Controller
         try {
             $data = request()->validate([
                 'brand_name' => 'required|string|max:255',
+                'brand_description' => 'string',
             ]);
             //Приводим brand_name к верхнему регистру
             $data['brand_name'] = mb_strtoupper($data['brand_name'], 'UTF-8');

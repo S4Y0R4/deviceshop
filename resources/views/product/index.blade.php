@@ -16,8 +16,8 @@
     <li><a href="{{route('product.show', $product->id)}}">{{$product->id}}. {{ $product->product_name }}</a></li>
 @endforeach
 </div>
+
 <div>
     <a href="{{route('product.create')}}">Добавить продукт</a>
     <a href="{{route('main.index')}}">На главную</a>
-
 </div>
