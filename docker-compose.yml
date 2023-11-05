@@ -3,14 +3,15 @@ version: '3.8'
 services:
   # PHP + Apache Service
   app:
-    image: php:8.0-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: deviceshop
     restart: unless-stopped
     ports:
       - "8000:80"
     volumes:
       - ./:/var/www/html
-      - ./docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
     environment:
       - DB_HOST=db
       - DB_PORT=3306
@@ -21,7 +22,6 @@ services:
       - db
     networks:
       - my-network
-    command: bash -c "docker-php-ext-install pdo pdo_mysql && a2enmod rewrite && apache2-foreground"
 
   # MySQL Service
   db:
