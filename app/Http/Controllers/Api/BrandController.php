@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BrandStoreRequest;
+use App\Http\Requests\Brand\StoreRequest;
+use App\Http\Requests\Brand\UpdateRequest;
 use App\Http\Resources\BrandResource;
-use Illuminate\Http\Request;
 use App\Models\Brand;
 
 class BrandController extends Controller
@@ -26,7 +26,7 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BrandStoreRequest $request)
+    public function store(StoreRequest $request)
     {
         $validated_data = $request->validated();
         $brand = Brand::create($validated_data);
@@ -52,7 +52,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BrandStoreRequest $request, Brand $brand)
+    public function update(UpdateRequest $request, Brand $brand)
     {
         $validated_data = $request->validated();
         $brand -> update($validated_data);

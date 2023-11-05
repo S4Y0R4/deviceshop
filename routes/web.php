@@ -1,36 +1,36 @@
 <?php
 
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class,'index'])->name('main.index'); 
 
-//Brand routes
-Route::get('/brands', [BrandController::class,'index'])->name('brand.index'); //Список всех брендов
-Route::get('/brands/create', [BrandController::class,'create'])->name('brand.create'); //Создать бренд
-Route::post('/brands', [BrandController::class,'store'])->name('brand.store'); //Сохранить созданный брендов
-Route::get('/brands/{brand}', [BrandController::class,'show'])->name('brand.show'); //Подробнее о бренде
-Route::get('/brands/{brand}/edit', [BrandController::class,'edit'])->name('brand.edit'); //Редактировать бренд
-Route::patch('/brands/{brand}', [BrandController::class, 'update'])->name('brand.update'); //Обновить бренд
-Route::delete('/brands/{brand}', [BrandController::class,'destroy'])->name('brand.destroy'); //Удалить бренд
+Route::group(['namespace'=>'App\Http\Controllers\Brand'], function(){
+    Route::get('/brands', 'IndexController' )->name('brand.index');
+    Route::get('/brands/create', 'CreateController')->name('brand.create');
+    Route::post('/brands', 'StoreController')->name('brand.store');
+    Route::get('/brands/{brand}', 'ShowController')->name('brand.show');
+    Route::get('/brands/{brand}/edit', 'EditController')->name('brand.edit');
+    Route::patch('/brands/{brand}', 'UpdateController')->name('brand.update');
+    Route::delete('/brands/{brand}', 'DestroyController')->name('brand.destroy');
+});
 
-// Category routes 
-Route::get('/categories', [CategoryController::class,'index'])->name('category.index'); //Список всех категорий
-Route::get('/categories/create', [CategoryController::class,'create'])->name('category.create'); //Создать категорию
-Route::post('/categories', [CategoryController::class,'store'])->name('category.store'); //Сохранить созданную категорию
-Route::get('/categories/{category}', [CategoryController::class,'show'])->name('category.show'); //Подробнее о категории
-Route::get('/categories/{category}/edit', [CategoryController::class,'edit'])->name('category.edit'); //Редактировать категорию
-Route::patch('/categories/{category}', [CategoryController::class,'update'])->name('category.update'); //Обновить категорию
-Route::delete('/categories/{category}', [CategoryController::class,'destroy'])->name('category.destroy'); //Удалить категорию
+Route::group(['namespace'=>'App\Http\Controllers\Category'], function(){
+    Route::get('/categories', 'IndexController' )->name('category.index');
+    Route::get('/categories/create', 'CreateController')->name('category.create');
+    Route::post('/categories', 'StoreController')->name('category.store');
+    Route::get('/categories/{category}', 'ShowController')->name('category.show');
+    Route::get('/categories/{category}/edit', 'EditController')->name('category.edit');
+    Route::patch('/categories/{category}', 'UpdateController')->name('category.update');
+    Route::delete('/categories/{category}', 'DestroyController')->name('category.destroy');
+});
 
-//Products routes
-Route::get('/products', [ProductController::class,'index'])->name('product.index'); //Список всех продуктов
-Route::get('/products/create', [ProductController::class,'create'])->name('product.create'); //Создать продукт
-Route::post('/products', [ProductController::class,'store'])->name('product.store'); //Сохранить созданный продукт
-Route::get('/products/{product}', [ProductController::class,'show'])->name('product.show'); //Подробнее о продукте
-Route::get('/products/{product}/edit',[ProductController::class,'edit'])->name('product.edit'); //Редактировать продукт
-Route::patch('/products/{product}', [ProductController::class,'update'])->name('product.update'); //Обновить продукт
-Route::delete('/products/{product}', [ProductController::class,'destroy'])->name('product.destroy'); //Удалить продукт
+Route::group(['namespace'=>'App\Http\Controllers\Product'], function(){
+    Route::get('/products', 'IndexController' )->name('product.index');
+    Route::get('/products/create', 'CreateController')->name('product.create');
+    Route::post('/products', 'StoreController')->name('product.store');
+    Route::get('/products/{product}', 'ShowController')->name('product.show');
+    Route::get('/products/{product}/edit', 'EditController')->name('product.edit');
+    Route::patch('/products/{product}', 'UpdateController')->name('product.update');
+    Route::delete('/products/{product}', 'DestroyController')->name('product.destroy');
+});

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductStoreRequest;
-use App\Http\Requests\ProductUpdateRequest;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\PriceChange;
 use App\Models\Product;
-use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
@@ -29,7 +29,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductStoreRequest $request)
+    public function store(StoreRequest $request)
     {
         $product = Product::create($request->except('price'));
 
@@ -62,7 +62,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductUpdateRequest $request, Product $product)
+    public function update(UpdateRequest $request, Product $product)
     {
         if ($request->input('price') != null) {
             $priceChange = new PriceChange([

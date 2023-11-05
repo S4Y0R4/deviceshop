@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BrandStoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class BrandStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'brand_name'=> 'required|string|max:255',
-            'brand_description'=> 'string',
+            'category_name' => 'required|string|max:255',
+            'category_description' => 'string',
         ];
     }
 }

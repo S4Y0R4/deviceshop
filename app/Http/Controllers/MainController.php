@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\PriceChange;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\Brand;
+
 
 class MainController extends Controller
 {
@@ -14,7 +14,8 @@ class MainController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
-        return view('index', compact('products','categories', ));
+        $brands = Brand::all();
+        return view('index', compact('products','categories', 'brands'));
     }
 
 }
