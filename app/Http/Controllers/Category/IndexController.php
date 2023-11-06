@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Category;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function __invoke()
     {

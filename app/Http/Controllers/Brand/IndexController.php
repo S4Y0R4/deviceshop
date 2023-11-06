@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Brand;
 
-use App\Http\Controllers\Controller;
 use App\Models\Brand;
 
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function __invoke()
     {

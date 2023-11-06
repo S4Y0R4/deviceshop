@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Brand;
 
-use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Product;
 
-class ShowController extends Controller
+class ShowController extends BaseController
 {
     public function __invoke(Brand $brand)
     {

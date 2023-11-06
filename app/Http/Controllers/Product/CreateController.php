@@ -7,7 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 
 
-class CreateController extends Controller
+class CreateController extends BaseController
 {
     public function __invoke()
     {

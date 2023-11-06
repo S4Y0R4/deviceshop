@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 
 
-class EditController extends Controller
+class EditController extends BaseController
 {
     
     public function __invoke(Product $product)
