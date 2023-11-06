@@ -15,6 +15,8 @@
 @endforeach
 
 <div>
+    {{$products->links()}}
+<div>
     <p><a href="{{route('brand.index')}}">Список брендов</a></p>
     <p><a href="{{route('category.index')}}">Список категорий</a></p>
     <p><a href="{{route('product.index')}}">Список продуктов</a></p>
