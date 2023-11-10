@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', $brand->brand_name)
+@section('content')
+
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -21,3 +26,5 @@
 
     <a href="{{ url('/brands') }}">Вернуться к списку брендов</a>
 </div>
+
+@endsection

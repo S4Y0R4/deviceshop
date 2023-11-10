@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', $category->category_name)
+@section('content')
+
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -21,3 +26,5 @@
 
     <a href="{{ url('/categories') }}">Вернуться к списку категорий</a>
 </div>
+
+@endsection

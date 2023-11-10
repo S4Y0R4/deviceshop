@@ -1,3 +1,9 @@
+@extends('layouts.layout')
+
+@section('title', 'Добавление нового бренда')
+
+@section('content')
+
 <h1>Добавление бренда</h1>
 <form method="POST" action="{{ route('brand.store') }}">
     @csrf
@@ -16,4 +22,5 @@
 <form action="{{route('brand.index')}}" method="GET">
     <button> К списку брендов </button>
 </form>
-    
+
+@endsection

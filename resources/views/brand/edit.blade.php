@@ -1,3 +1,9 @@
+@extends('layouts.layout')
+
+@section('title', 'Редактирование бренда')
+
+@section('content')
+
 <h1>Редактирование бренда</h1>
 <form action="{{ route('brand.update', $brand->id) }}" method="POST">
     @csrf
@@ -23,3 +29,5 @@
     @method('DELETE')
     <button type="submit" class="btn btn-danger">Удалить бренд</button>
 </form>
+
+@endsection

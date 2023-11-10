@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', 'Добавление новой категории')
+@section('content')
+
 <h1>Добавление категории</h1>
 <form method="POST" action="{{ route('category.store') }}">
     @csrf
@@ -16,4 +21,5 @@
 <form action="{{route('category.index')}}" method="GET">
     <button> К списку категорий </button>
 </form>
-    
+
+@endsection

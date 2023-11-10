@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', 'Список продуктов')
+@section('content')
+
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -25,3 +30,5 @@
     <a href="{{route('product.create')}}">Добавить продукт</a>
     <a href="{{route('main.index')}}">На главную</a>
 </div>
+
+@endsection

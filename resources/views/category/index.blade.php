@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', 'Список категорий')
+@section('content')
+
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -21,3 +26,5 @@
     <a href="{{route('category.create')}}">Добавить категорию</a>
     <a href="{{route('main.index')}}">На главную</a>
 </div>
+
+@endsection

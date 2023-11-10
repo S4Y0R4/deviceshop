@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', $product->product_name)
+@section('content')
+
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -22,3 +27,5 @@
     
     <a href="{{ url('/products') }}">Вернуться к списку продуктов</a>
 </div>
+
+@endsection

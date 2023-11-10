@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', 'Редактирование категории')
+@section('content')
+
 <h1>Редактирование категории</h1>
 <form action="{{ route('category.update', $category->id) }}" method="POST" >
     @csrf
@@ -23,3 +28,5 @@
     @method('DELETE')
     <button type="submit" class="btn btn-danger">Удалить категорию</button>
 </form>
+
+@endsection

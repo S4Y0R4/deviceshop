@@ -1,4 +1,9 @@
-<h1>Создание нового продукта</h1>
+@extends('layouts.layout')
+
+@section('title', 'Добавление нового продукта')
+@section('content')
+
+<h1>Добавление нового продукта</h1>
 <form method="POST" action="{{ route('product.store') }}">
     @csrf
     <div class="form-group">
@@ -46,4 +51,5 @@
 <form action="{{route('product.index')}}" method="GET">
     <button> К списку продуктов </button>
 </form>
-    
+
+@endsection

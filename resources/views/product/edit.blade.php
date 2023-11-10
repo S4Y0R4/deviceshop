@@ -1,3 +1,8 @@
+@extends('layouts.layout')
+
+@section('title', 'Редактирование продукта')
+@section('content')
+
 <h1>Редактирование продукта</h1>
 <form action="{{ route('product.update', $product->id)}}" method="POST">
     @csrf
@@ -55,3 +60,5 @@
     @method('DELETE')
     <button type="submit" class="btn btn-danger">Удалить продукт</button>
 </form>
+
+@endsection
