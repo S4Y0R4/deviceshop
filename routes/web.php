@@ -5,6 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class,'index'])->name('main.index'); 
 
+Route::group(['namespace'=>'App\Http\Controllers\Auth'], function(){
+    Route::get('/register', 'ShowRegisterFormController')->name('register');
+    Route::post('/register_process', 'RegisterController')->name('register.process');
+    Route::get('/login', 'ShowLoginFormController')->name('login');
+    Route::get('/logout', 'LogoutController')->name('logout');
+    Route::post('/login_process', 'LoginController')->name('login.process');
+});
 Route::group(['namespace'=>'App\Http\Controllers\Brand'], function(){
     Route::get('/brands', 'IndexController' )->name('brand.index');
     Route::get('/brands/create', 'CreateController')->name('brand.create');

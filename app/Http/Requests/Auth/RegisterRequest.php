@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Brand;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+
+class RegisterRequest extends FormRequest
 {
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'brand_name'=>mb_strtoupper($this->brand_name, 'UTF-8'),
-        ]);
-    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -21,7 +17,6 @@ class StoreRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,8 +25,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'brand_name' => 'required|string|max:255',
-            'brand_description' => 'string',
+            'name'=>'required|string',
+            'email'=>'required|email|string|unique:users,email',
+            'password'=>'required|confirmed'
         ];
     }
 }

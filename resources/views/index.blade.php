@@ -1,4 +1,10 @@
-<h1>DeviceShop</h1>
+@extends('layouts.layout')
+
+@section('title', 'DeviceShop')
+
+@section('content')
+
+
 Бренды
 @foreach ($brands as $brand)
     <div><a href="{{route('brand.show', $brand->id)}}">{{$brand->brand_name}}</a></div>
@@ -14,11 +20,12 @@
     <div><a href="{{route('product.show', $product->id)}}">{{$product->product_name . ' ' . $product->latestPrice()->new_price}}</a></div>
 @endforeach
 
-<div>
-    {{$products->links()}}
-<div>
+
+{{$products->links()}}
+
     <p><a href="{{route('brand.index')}}">Список брендов</a></p>
     <p><a href="{{route('category.index')}}">Список категорий</a></p>
     <p><a href="{{route('product.index')}}">Список продуктов</a></p>
 
 </div>
+@endsection

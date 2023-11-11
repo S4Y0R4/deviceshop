@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\Http\Controllers\Brand;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Services\Brand\Service;
+use App\Services\Auth\Service;
 
 
 class BaseController extends Controller{
