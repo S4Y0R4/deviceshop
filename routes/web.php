@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class,'index'])->name('main.index'); 
 
+Route::group(['namespace'=>'App\Http\Controllers\Specification'], function(){
+    Route::get('/get_specifications','IndexController')->name('specifications.index');
+});
+
 Route::group(['namespace'=>'App\Http\Controllers\Auth'], function(){
     Route::get('/register', 'ShowRegisterFormController')->name('register');
     Route::post('/register_process', 'RegisterController')->name('register.process');

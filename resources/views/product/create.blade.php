@@ -18,12 +18,16 @@
 
     <div class="form-group">
         <label for="category_id">Категория</label>
-        <select name="category_id" id="category_id" class="form-control" required>
+        <select name="category_id" hx-get="{{ route('specifications.index') }}" hx-trigger="change" hx-target="#specifications">
             <option value="">Выберите существующую категорию</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->category_name }}</option>
             @endforeach
         </select>
+
+    </div>
+
+    <div id="specifications">
     </div>
 
     <div class="form-group">

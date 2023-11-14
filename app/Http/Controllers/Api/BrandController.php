@@ -7,6 +7,8 @@ use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class BrandController extends Controller
 {
@@ -15,7 +17,7 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index():AnonymousResourceCollection
     {
         return BrandResource::collection(Brand::with('products')->get());
     }
@@ -26,7 +28,7 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request):BrandResource
     {
         $validated_data = $request->validated();
         $brand = Brand::create($validated_data);
@@ -39,7 +41,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id):BrandResource
     {
         $brand = Brand::with('products')->findOrFail($id);
         return new BrandResource($brand);
@@ -52,7 +54,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Brand $brand)
+    public function update(UpdateRequest $request, Brand $brand):BrandResource
     {
         $validated_data = $request->validated();
         $brand -> update($validated_data);
@@ -65,7 +67,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy(Brand $brand):Response
     {
         $brand->delete();
         return response()->noContent();

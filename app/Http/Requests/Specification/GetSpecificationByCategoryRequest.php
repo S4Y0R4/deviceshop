@@ -1,17 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Brand;
+namespace App\Http\Requests\Specification;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class GetSpecificationByCategoryRequest extends FormRequest
 {
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'brand_name'=>mb_strtoupper($this->brand_name, 'UTF-8'),
-        ]);
-    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,10 +22,10 @@ class StoreRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
+    {   
+        
         return [
-            'brand_name' => 'required|string|max:255',
-            'brand_description' => 'nullable|string',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 }

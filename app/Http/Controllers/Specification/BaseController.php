@@ -1,17 +1,16 @@
 <?php 
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Specification;
 
 use App\Http\Controllers\Controller;
-use App\Services\Auth\Service;
+use App\Services\Specification\Service;
 
 
 class BaseController extends Controller{
 
     public $service;
 
-    public function __construct(Service $service)
-    {
+    public function __construct(Service $service){
         $this->service = $service;
     }
     

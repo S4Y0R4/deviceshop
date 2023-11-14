@@ -3,18 +3,6 @@
 @section('title', $product->product_name)
 @section('content')
 
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
 <div class="product-details">
     <h1>{{ $product->product_name }}</h1>
     <p>{{ $product->product_description }}</p>

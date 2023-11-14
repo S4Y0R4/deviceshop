@@ -8,7 +8,8 @@ use App\Http\Requests\Product\UpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\PriceChange;
 use App\Models\Product;
-
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -17,7 +18,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index():AnonymousResourceCollection
     {
         $products = Product::all();
         return ProductResource::collection($products);
@@ -29,7 +30,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request):ProductResource
     {
         $product = Product::create($request->except('price'));
 
@@ -49,7 +50,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id):ProductResource
     {
         $product = Product::findOrFail($id);
         return new ProductResource($product);
@@ -62,7 +63,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Product $product)
+    public function update(UpdateRequest $request, Product $product):ProductResource
     {
         if ($request->input('price') != null) {
             $priceChange = new PriceChange([
@@ -80,7 +81,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product):Response
     {
         $product->delete();
         return response()->noContent();

@@ -32,7 +32,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'category_name' => 'required|string|max:255',
-            'category_description' => 'string',
+            'category_description' => 'nullable|string',
         ];
     }
 }

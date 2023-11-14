@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
         <label for="category_description">Описание категории</label>
-        <textarea name="category_description" id="category_description" class="form-control" rows="6" required></textarea>
+        <textarea name="category_description" id="category_description" class="form-control" rows="6" ></textarea>
     </div>
 
     <button type="submit">Добавить категорию</button>
